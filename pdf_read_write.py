@@ -14,9 +14,9 @@ def extract_text_from_pdf(pdf_path):
     """
     text = ''
     with open(pdf_path, 'rb') as file:
-        pdf_reader = PyPDF2.PdfFileReader(file)
-        for page_num in range(pdf_reader.numPages):
-            text += pdf_reader.getPage(page_num).extractText()
+        pdf_reader = PyPDF2.PdfReader(file)
+        for page_num in range(len(pdf_reader.pages)):
+            text += pdf_reader.pages[page_num].extract_text()
     return text
 
 def write_to_excel(text, excel_path):
@@ -31,7 +31,7 @@ def write_to_excel(text, excel_path):
     workbook.save(excel_path)
 
 def main():
-    pdf_path = 'example.pdf'  # Provide the path to your PDF file
+    pdf_path = 'my-resume-2021.pdf'  # Provide the path to your PDF file
     excel_path = 'output.xlsx'  # Provide the desired name for the output Excel file
 
     text = extract_text_from_pdf(pdf_path)
